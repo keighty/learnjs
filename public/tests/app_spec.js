@@ -50,7 +50,7 @@ describe('LearnJS', function () {
       it('can check the correct answer by hitting a button', function () {
         view.find('.answer').val('true')
         view.find('.check-btn').click()
-        expect(view.find('.result').text()).toEqual('Correct!')
+        expect(view.find('.result').text()).toEqual('Correct! Next problem')
       })
 
       it('can check the incorrect answer by hitting a button', function () {
