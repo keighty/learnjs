@@ -47,7 +47,9 @@ learnjs.problemView = function (data) {
 
   function checkAnswerClick () {
     if (checkAnswer()) {
-      learnjs.flashElement(result, 'Correct!')
+      var correct = learnjs.template('correct-flash')
+      correct.find('a').attr('href', '#problem-' + (problemNumber + 1))
+      learnjs.flashElement(result, correct)
     } else {
       learnjs.flashElement(result, 'Incorrect :(')
     }
@@ -64,9 +66,9 @@ learnjs.template = function (name) {
   return $('.templates .' + name).clone()
 }
 
-learnjs.flashElement = function (el, text) {
+learnjs.flashElement = function (el, html) {
   el.fadeOut('fast', function () {
-    el.html(text)
+    el.html(html)
     el.fadeIn()
   })
 }
