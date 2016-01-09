@@ -13,12 +13,22 @@ learnjs.problems = [
   }
 ]
 
-// one-way data binding
-// good for static fields and elements that
-// have a text value
-learnjs.applyObject = function (obj, elem) {
-  for (var key in obj) {
-    elem.find('[data-name="' + key + '"]').text(obj[key])
+learnjs.appOnReady = function () {
+  window.onhashchange = function () {
+    learnjs.showView(window.location.hash)
+  }
+  learnjs.showView(window.location.hash)
+}
+
+learnjs.showView = function (hash) {
+  var routes = {
+    '#problem': learnjs.problemView
+  }
+
+  var hashParts = hash.split('-')
+  var viewFn = routes[hashParts[0]]
+  if (viewFn) {
+    $('.view-container').empty().append(viewFn(hashParts[1]))
   }
 }
 
@@ -36,7 +46,6 @@ learnjs.problemView = function (data) {
   }
 
   function checkAnswerClick () {
-    console.log(checkAnswer())
     if (checkAnswer()) {
       result.text('Correct!')
     } else {
@@ -51,21 +60,11 @@ learnjs.problemView = function (data) {
   return view
 }
 
-learnjs.showView = function (hash) {
-  var routes = {
-    '#problem': learnjs.problemView
+// one-way data binding
+// good for static fields and elements that
+// have a text value
+learnjs.applyObject = function (obj, elem) {
+  for (var key in obj) {
+    elem.find('[data-name="' + key + '"]').text(obj[key])
   }
-
-  var hashParts = hash.split('-')
-  var viewFn = routes[hashParts[0]]
-  if (viewFn) {
-    $('.view-container').empty().append(viewFn(hashParts[1]))
-  }
-}
-
-learnjs.appOnReady = function () {
-  window.onhashchange = function () {
-    learnjs.showView(window.location.hash)
-  }
-  learnjs.showView(window.location.hash)
 }

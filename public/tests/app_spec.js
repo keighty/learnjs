@@ -52,6 +52,12 @@ describe('LearnJS', function () {
         view.find('.check-btn').click()
         expect(view.find('.result').text()).toEqual('Correct!')
       })
+
+      it('can check the incorrect answer by hitting a button', function () {
+        view.find('.answer').val('false')
+        view.find('.check-btn').click()
+        expect(view.find('.result').text()).toEqual('Incorrect :(')
+      })
     })
   })
 })
