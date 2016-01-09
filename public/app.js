@@ -24,9 +24,30 @@ learnjs.applyObject = function (obj, elem) {
 
 learnjs.problemView = function (data) {
   var problemNumber = parseInt(data, 10)
+  var problemData = learnjs.problems[problemNumber - 1]
   var view = $('.templates .problem-view').clone()
+  var result = view.find('.result')
+
+  function checkAnswer () {
+    var answer = view.find('.answer').val()
+    var test = problemData.code.replace('___', answer) + '; problem();'
+
+    return eval(test)
+  }
+
+  function checkAnswerClick () {
+    console.log(checkAnswer())
+    if (checkAnswer()) {
+      result.text('Correct!')
+    } else {
+      result.text('Incorrect :(')
+    }
+    return false
+  }
+
+  view.find('.check-btn').click(checkAnswerClick)
   view.find('.title').text('Problem #' + problemNumber)
-  learnjs.applyObject(learnjs.problems[problemNumber -1], view)
+  learnjs.applyObject(problemData, view)
   return view
 }
 

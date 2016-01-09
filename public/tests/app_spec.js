@@ -35,11 +35,23 @@ describe('LearnJS', function () {
     })
 
     it('has a title that includes the problem number', function () {
-      expect(view.text()).toEqual('Problem #1 Coming soon!')
+      expect(view.find('.title').text()).toEqual('Problem #1')
     })
 
     it('shows the description', function () {
-      expect(view.find('[data-name="description"').text()).toEqual("What is truth?")
+      expect(view.find('[data-name="description"]').text()).toEqual("What is the truth?")
+    })
+
+    it('shows the problem code', function () {
+      expect(view.find('[data-name="code"]').text()).toEqual("function problem () { return ___ }")
+    })
+
+    describe('answer section', function () {
+      it('can check the correct answer by hitting a button', function () {
+        view.find('.answer').val('true')
+        view.find('.check-btn').click()
+        expect(view.find('.result').text()).toEqual('Correct!')
+      })
     })
   })
 })
