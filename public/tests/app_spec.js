@@ -1,8 +1,11 @@
 describe('LearnJS', function () {
-  it('can show a problem view', function () {
-    learnjs.showView('#problem-1')
-    expect($('.view-container .problem-view').length).toEqual(1)
-  })
+  setTimeout(function () {
+    it('can show a problem view', function () {
+
+      learnjs.showView('#problem-1')
+      expect($('.view-container .problem-view').length).toEqual(1)
+    })
+  }, 500)
 
   it('shows the landing page view when there is no hash', function () {
     learnjs.showView('')
@@ -29,9 +32,11 @@ describe('LearnJS', function () {
   })
 
   describe('problem view', function () {
-    it('has a title that includes the problem number', function () {
-      var view = learnjs.problemView('1')
-      expect(view.text()).toEqual('Problem #1 Coming soon!')
-    })
+    setTimeout(function () {
+      it('has a title that includes the problem number', function () {
+        var view = learnjs.problemView('1')
+        expect(view.text()).toEqual('Problem #1 Coming soon!')
+      })
+    }, 500)
   })
 })
