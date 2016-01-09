@@ -35,7 +35,7 @@ learnjs.showView = function (hash) {
 learnjs.problemView = function (data) {
   var problemNumber = parseInt(data, 10)
   var problemData = learnjs.problems[problemNumber - 1]
-  var view = $('.templates .problem-view').clone()
+  var view = learnjs.template('problem-view')
   var result = view.find('.result')
 
   function checkAnswer () {
@@ -47,9 +47,9 @@ learnjs.problemView = function (data) {
 
   function checkAnswerClick () {
     if (checkAnswer()) {
-      result.text('Correct!')
+      learnjs.flashElement(result, 'Correct!')
     } else {
-      result.text('Incorrect :(')
+      learnjs.flashElement(result, 'Incorrect :(')
     }
     return false
   }
@@ -58,6 +58,17 @@ learnjs.problemView = function (data) {
   view.find('.title').text('Problem #' + problemNumber)
   learnjs.applyObject(problemData, view)
   return view
+}
+
+learnjs.template = function (name) {
+  return $('.templates .' + name).clone()
+}
+
+learnjs.flashElement = function (el, text) {
+  el.fadeOut('fast', function () {
+    el.html(text)
+    el.fadeIn()
+  })
 }
 
 // one-way data binding
