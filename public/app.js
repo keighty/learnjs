@@ -41,19 +41,28 @@ learnjs.problemView = function (data) {
   function checkAnswer () {
     var answer = view.find('.answer').val()
     var test = problemData.code.replace('___', answer) + '; problem();'
-
     return eval(test)
   }
 
   function checkAnswerClick () {
     if (checkAnswer()) {
-      var correct = learnjs.template('correct-flash')
-      correct.find('a').attr('href', '#problem-' + (problemNumber + 1))
-      learnjs.flashElement(result, correct)
+      learnjs.flashElement(result, buildCorrectFlash(problemNumber))
     } else {
       learnjs.flashElement(result, 'Incorrect :(')
     }
     return false
+  }
+
+  function buildCorrectFlash (number) {
+    var correct = learnjs.template('correct-flash')
+    var link = correct.find('a')
+    if (number < learnjs.problems.length) {
+      link.attr('href', '#problem-' + (number + 1))
+    } else {
+      link.attr('href', '')
+      link.text("You're finished")
+    }
+    return correct
   }
 
   view.find('.check-btn').click(checkAnswerClick)
