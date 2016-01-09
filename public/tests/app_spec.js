@@ -1,11 +1,8 @@
 describe('LearnJS', function () {
-  setTimeout(function () {
-    it('can show a problem view', function () {
-
-      learnjs.showView('#problem-1')
-      expect($('.view-container .problem-view').length).toEqual(1)
-    })
-  }, 500)
+  it('can show a problem view', function () {
+    learnjs.showView('#problem-1')
+    expect($('.view-container .problem-view').length).toEqual(1)
+  })
 
   it('shows the landing page view when there is no hash', function () {
     learnjs.showView('')
@@ -32,11 +29,17 @@ describe('LearnJS', function () {
   })
 
   describe('problem view', function () {
-    setTimeout(function () {
-      it('has a title that includes the problem number', function () {
-        var view = learnjs.problemView('1')
-        expect(view.text()).toEqual('Problem #1 Coming soon!')
-      })
-    }, 500)
+    var view
+    beforeEach(function () {
+      view = learnjs.problemView('1')
+    })
+
+    it('has a title that includes the problem number', function () {
+      expect(view.text()).toEqual('Problem #1 Coming soon!')
+    })
+
+    it('shows the description', function () {
+      expect(view.find('[data-name="description"').text()).toEqual("What is truth?")
+    })
   })
 })
