@@ -22,7 +22,8 @@ learnjs.appOnReady = function () {
 
 learnjs.showView = function (hash) {
   var routes = {
-    '#problem': learnjs.problemView
+    '#problem': learnjs.problemView,
+    '': learnjs.landingView
   }
 
   var hashParts = hash.split('-')
@@ -30,6 +31,10 @@ learnjs.showView = function (hash) {
   if (viewFn) {
     $('.view-container').empty().append(viewFn(hashParts[1]))
   }
+}
+
+learnjs.landingView = function () {
+  return learnjs.template('landing-view')
 }
 
 learnjs.problemView = function (data) {
